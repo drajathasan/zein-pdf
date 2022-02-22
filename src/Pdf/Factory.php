@@ -17,9 +17,26 @@ class Factory
 
     use Error;
 
+    /**
+     * Error property
+     *
+     * @var string
+     */
     private $Error;
+
+    /**
+     * Provider instance
+     *
+     * @var object
+     */
     private $Provider;
 
+    /**
+     * Set Provider Instance
+     *
+     * @param string $providerName
+     * @return void
+     */
     public function setProvider(string $providerName)
     {
         $Class = '\Zein\Pdf\Provider\\' . $providerName;
@@ -36,6 +53,19 @@ class Factory
         return $this;
     }
 
+    /**
+     * Get PDF provider
+     */
+    public function getProvider()
+    {
+        return $this->Provider;
+    }
+
+    /**
+     * Get PDF provider instance
+     *
+     * @return void
+     */
     public function getPdf()
     {
         if (func_num_args() === 0)

@@ -12,6 +12,11 @@ namespace Zein\Pdf;
 
 trait Error
 {
+    /**
+     * Get Error property
+     *
+     * @return string
+     */
     public function getError()
     {
         return $this->Error;
