@@ -1,0 +1,21 @@
+{
+    "name": "zein/pdf",
+    "description": "PDF maker factory",
+    "type": "library",
+    "require": {
+        "fpdf/fpdf": "^1.83",
+        "dompdf/dompdf": "^1.2"
+    },
+    "license": "GPL-3.0",
+    "autoload": {
+        "psr-4": {
+            "Zein\\Pdf\\": "src/Pdf/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Drajat Hasan",
+            "email": "drajathasan20@gmail.com"
+        }
+    ]
+}
