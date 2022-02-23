@@ -13,6 +13,6 @@ namespace Zein\Pdf;
 interface FactoryInterface
 {
     public function getTemplate($callback = '');
-    public function loadTemplate(object $Template);
+    public function loadTemplate(Template $Template);
     public function generate(string $subTemplae);
 }

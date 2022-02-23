@@ -11,7 +11,7 @@
 namespace Zein\Pdf\Provider\Fpdf;
 
 use Fpdf\Fpdf as CorePDF;
-use Zein\Pdf\FactoryInterface;
+use Zein\Pdf\{FactoryInterface,Template};
 
 class Fpdf extends CorePDF implements FactoryInterface
 {
@@ -42,7 +42,7 @@ class Fpdf extends CorePDF implements FactoryInterface
      * @param object $Template
      * @return void
      */
-    public function loadTemplate(object $Template)
+    public function loadTemplate(Template $Template)
     {
         $this->template = $Template;
     }
@@ -67,6 +67,7 @@ class Fpdf extends CorePDF implements FactoryInterface
      */
     public function generate(string $subTemplae)
     {
-        $this->template->{$subTemplae}($this);
+        $this->template->setPdf($this)->{$subTemplae}();
+        return $this->template;
     }
 }

@@ -32,6 +32,34 @@ class Factory
     private $Provider;
 
     /**
+     * Default prefix namespace for call provider
+     * 
+     * @var string
+     */
+    private $PrefixNamespace = '\Zein\Pdf\Provider\\';
+
+    /**
+     * Template instance
+     * 
+     * @var object
+     */
+    private $Template;
+
+    
+    public function __construct(object $template)
+    {
+        if (!empty($template)) 
+        {
+            // Set template instance
+            $this->Template = $template;
+
+            // set provider
+            $Class = $this->PrefixNamespace . $template->getProvider();
+            $this->Provider = new $Class;
+        }
+    }
+
+    /**
      * Set Provider Instance
      *
      * @param string $providerName
@@ -39,16 +67,12 @@ class Factory
      */
     public function setProvider(string $providerName)
     {
-        $Class = '\Zein\Pdf\Provider\\' . $providerName;
+        $Class = $this->PrefixNamespace . $providerName;
 
         if (!class_exists($Class)) 
             throw new Exception("Provider {$providerName} not found!", 1);
 
-        try {
-            $this->Provider = new $Class;
-        } catch (Exception $e) {
-            $this->Error = $e->getMessage();
-        }
+        $this->Provider = new $Class;
 
         return $this;
     }
@@ -69,8 +93,17 @@ class Factory
     public function getPdf()
     {
         if (func_num_args() === 0)
-            return $this->Provider->getInstance();
-
-        return call_user_func_array([$this->Provider, 'getInstance'], func_get_args());
+        {
+            $Provider = $this->Provider->getInstance();
+        }
+        else
+        {
+            $Provider = call_user_func_array([$this->Provider, 'getInstance'], func_get_args());
+        }
+        
+        // Load template
+        $Provider->loadTemplate($this->Template);
+        
+        return  $Provider;
     }
 }
