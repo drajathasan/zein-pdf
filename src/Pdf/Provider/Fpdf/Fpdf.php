@@ -30,7 +30,7 @@ class Fpdf extends CorePDF implements FactoryInterface
      * @param string $size
      * @return object
      */
-    public function getInstance(string $orientation = 'P', string $unit = 'mm', string $size = 'letter')
+    public function getInstance(string $orientation = 'P', string $unit = 'mm', $size = 'letter')
     {
         parent::__construct($orientation, $unit, $size);
         return $this;
